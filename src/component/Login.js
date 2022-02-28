@@ -32,19 +32,46 @@ const Login = () =>{
     // }
 
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
       e.preventDefault();
-      axios
-        .post('https://fakestoreapi.com/auth/login', {username: email, password: password})
-        .then((res) => {
-          if (res.data.token) {
-            localStorage.setItem("id", JSON.stringify(res));
-            console.log(res);
-            localStorage.setItem("username", JSON.stringify(email));
-          localStorage.setItem("password", JSON.stringify(password));
-            return navigate("/");
-          }
-        });
+    const logindata= await axios
+        .post ('https://fakestoreapi.com/auth/login', {username: email, password: password})
+        if(logindata.data.token){
+          const userdetails= await axios
+           .get("https://fakestoreapi.com/users")
+           if(userdetails){
+            const user = userdetails.data.filter(
+                         (x) => x.username === email && x.password === password
+            );
+            console.log(user,"loginfile");
+        //         // setData(user);
+              localStorage.setItem("data", JSON.stringify(user));
+              navigate("/");
+           }
+
+        }
+        // .then((res) => {
+        //   if (res.data.token) {
+        //   const userdetails= await axios
+        //     .get("https://fakestoreapi.com/users")
+        //     .then((response) => {
+        //         const user = response.data.find(
+        //             (x) => x.username === email && x.password === password
+        //         );
+        //         console.log(user,"login");
+        //         // setData(user);
+        //         localStorage.setItem("data", JSON.stringify(user));
+        //     })
+            // .catch((error) =>
+            //     console.log(`Error ${error}`)
+            // );
+          //   localStorage.setItem("id", JSON.stringify(res));
+          //   console.log(res);
+          //   localStorage.setItem("username", JSON.stringify(email));
+          // localStorage.setItem("password", JSON.stringify(password));
+          //  navigate("/");
+        //   }
+        // });
       
     };
 

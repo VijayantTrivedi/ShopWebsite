@@ -7,10 +7,10 @@ import axios from "axios";
 
 
 const Navbar = () => {
-    const [data,setData] = useState("");
+    // const [data, setData] = useState("");
     // var res = JSON.parse(localStorage.getItem("data"));
-    
-    
+
+
     const state = useSelector((state) => state.handleCart)
 
     let navigate = useNavigate();
@@ -24,28 +24,28 @@ const Navbar = () => {
 
     };
 
-    
-    useEffect(() =>{
-        // getData();
-   
 
-    
+    useEffect(() => {
+        // getData();
+
+
+
         var email = JSON.parse(localStorage.getItem("username"));
         var password = JSON.parse(localStorage.getItem("password"));
-        axios
-        .get("https://fakestoreapi.com/users")
-        .then((response) =>{
-            const user = response.data.find(
-                (x) => x.username === email && x.password === password
-            );
-            setData(user);
-            localStorage.setItem("data",JSON.stringify(user));
-        })
-        .catch((error) => 
-        console.log(`Error ${error}`)
-        );
-    
-}, []);
+        
+
+    }, []);
+    let data = JSON.parse(localStorage.getItem("data"));
+    console.log(data,"navbardata");
+    let email = localStorage.getItem("username");
+    let firstname="";
+    let lastname="";
+    if(data && data.length){
+    console.log(data[0]?.name?.firstname,"navbarname");
+     firstname=data[0]?.name?.firstname;
+     lastname=data[0]?.name?.lastname;
+    }
+    let password = localStorage.getItem("password");
 
     return (
         <div>
@@ -78,27 +78,23 @@ const Navbar = () => {
 
                             </li>
                         </ul>
-                        
+
                         <Nav>
-                             
-                                 <NavDropdown title={data ?.length === 0 ? (
-                                    <p>No Data</p>
-                                ) :(
-                                     <p>{data.name.firstname}
-                                     {data.name.lastname}</p> 
-                                )}> 
-                                {/* <NavDropdown> */}
+
+                            <NavDropdown title={`${firstname} ${lastname}`}>
+
+
                                 <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
                         <div className="buttons">
-                        <Link to="/login" className="btn btn-outline-dark ms-2">
+                            <Link to="/login" className="btn btn-outline-dark ms-2">
                                 <i className="fa fa-sign-in me-1"></i>Login
-                            </Link>        
+                            </Link>
 
 
                             <Link to="/signup" className="btn btn-outline-dark ms-2">
-                            <i className="fa fa-sign-out me-1"></i> Signup
+                                <i className="fa fa-sign-out me-1"></i> Signup
                             </Link>
 
 

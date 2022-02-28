@@ -1,9 +1,21 @@
 import React, { useState } from "react";
 
 const SignUp = () => {
-    const [username,setUserName] = useState("");
-    const [email,setEmail] = useState("");
-    const [password,setPassword] =useState("");
+    const [values,setValues] = useState({
+        username:"",
+        email:"",
+        password:"",
+    })
+const handleChange = (e) => {
+setValues({
+    ...values,
+    [e.target.username]:e.target.value,
+})
+}
+
+const handleSubmit = (e) => {
+
+}
 
 return(
     <div className="wrapper">
@@ -13,16 +25,16 @@ return(
 
             <label>UserName</label>
             <input type="text" className="form-control custom-input" name="username" placeholder="Enter your email address" 
-             onChange={(e) => setUserName(e.target.value)} value={username}/>
+              value={values.username} onChange={handleChange}/>
 
 
             <label>Email</label>
             <input type="text" className="form-control custom-input" name="email" placeholder="Enter your email address" 
-             onChange={(e) => setEmail(e.target.value)} value={email}/>
+              value={values.email} onChange={handleChange}/>
             <br></br>
             <label>Password</label>
-            <input type="password" className="form-control custom-input" name="password" placeholder="Enter your password" 
-            onChange={(e) => setPassword(e.target.value)} value={password}/>
+            <input type="Password" className="form-control custom-input" name="password" placeholder="Enter your password" 
+             value={values.password} onChange={handleChange}/>
             
             <br></br>
             <button type="submit" 
