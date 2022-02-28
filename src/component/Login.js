@@ -139,8 +139,8 @@ const Login = () =>{
         <br></br>
         </>}    */}
 
-            <label>Email</label>
-            <input type="text" className="form-control custom-input" placeholder="Enter your email address" 
+            <label>UserName</label>
+            <input type="text" className="form-control custom-input" placeholder="Enter your UserName" 
              onChange={(e) => setEmail(e.target.value)} value={email}/>
             {/* {emailError&&<div className='error-msg '>{emailError}</div>} */}
             <br></br>
